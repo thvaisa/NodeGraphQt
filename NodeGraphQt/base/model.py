@@ -408,6 +408,9 @@ class NodeModel(object):
         if outputs:
             node_dict['outputs'] = outputs
 
+        node_dict["inputs_"] = inputs
+        node_dict["outputs_"] = outputs
+
         if self.port_deletion_allowed:
             node_dict['input_ports'] = input_ports
             node_dict['output_ports'] = output_ports
