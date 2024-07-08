@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import json
 from collections import defaultdict
-
+import copy
 from NodeGraphQt.constants import (
     LayoutDirectionEnum,
     NodePropWidgetEnum,
@@ -383,6 +383,10 @@ class NodeModel(object):
         outputs = {}
         input_ports = []
         output_ports = []
+
+        node_dict["input_ports"] = list(node_dict["inputs"].keys())
+        node_dict["output_ports"] = list(node_dict["outputs"].keys())
+
         for name, model in node_dict.pop('inputs').items():
             if self.port_deletion_allowed:
                 input_ports.append({
@@ -407,9 +411,6 @@ class NodeModel(object):
             node_dict['inputs'] = inputs
         if outputs:
             node_dict['outputs'] = outputs
-
-        node_dict["inputs_"] = inputs
-        node_dict["outputs_"] = outputs
 
         if self.port_deletion_allowed:
             node_dict['input_ports'] = input_ports
