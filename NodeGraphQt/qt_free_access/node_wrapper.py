@@ -20,7 +20,6 @@ class NodeWrapper:
     def __init__(self, data, id, graph_access):
         self.input_ports = []
         self.output_ports = []
-        print(data)
         self.id = id
         self.graph_access = graph_access
         self.data = data 
