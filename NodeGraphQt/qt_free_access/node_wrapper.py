@@ -6,6 +6,7 @@ class Port:
         self.name = name
         self.node = node
         self.connections = []
+        self.data = None
 
     def get_connected_ports(self):
         if(len(self.connections)==0):
@@ -15,6 +16,13 @@ class Port:
     def connect(self, connected_port):
         self.connections.append(connected_port)
         connected_port.connections.append(self)
+
+    def set_data(self, data):
+        self.data = data
+
+    def get_data(self):
+        print(self.get_connected_ports()[0].name)
+        return self.get_connected_ports()[0].data
 
 class NodeWrapper:
     def __init__(self, data, id, graph_access):
@@ -54,6 +62,10 @@ class NodeWrapper:
         port = self.get_output_port(name)
         return port.get_connected_ports()[0].node
 
+    def get_next_nodes(self, name):
+        port = self.get_output_port(name)
+        return [x.node for x in port.get_connected_ports()]
+    
     def str_type(self):
         return self.str_type
     
