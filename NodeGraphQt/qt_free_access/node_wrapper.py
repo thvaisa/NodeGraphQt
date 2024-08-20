@@ -45,18 +45,26 @@ class NodeWrapper:
                             "pos", "layout_direction", "port_delection_allowed", "subgraph_session"]:
                 setattr(self, key, variable)
 
+
+    def get_output_port_names(self):
+        return [port.name for port in self.output_ports]
+
+    def get_input_port_names(self):
+        return [port.name for port in self.input_ports]
+
+
     def get_output_port(self, name):
         for port in self.output_ports:
             if port.name == name:
                 return port
 
-        raise RuntimeError("no output port with name {}".format(name))
+        raise RuntimeError("no output port with name {} within {}".format(name, self.get_output_port_names()))
 
     def get_input_port(self, name):
         for port in self.input_ports:
             if port.name == name:
                 return port
-        raise RuntimeError("no input port with name {}".format(name))
+        raise RuntimeError("no input port with name {} within {}".format(name, self.get_input_port_names()))
 
     def get_next_node(self, name):
         port = self.get_output_port(name)
